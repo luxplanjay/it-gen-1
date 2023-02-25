@@ -1,42 +1,44 @@
 import PropTypes from 'prop-types';
+import { BsAlarm } from 'react-icons/bs';
 import { AiOutlinePieChart } from 'react-icons/ai';
-import { BsBarChart } from 'react-icons/bs';
-import { RxTimer } from 'react-icons/rx';
+import { HiOutlineChartBar, HiTrash, HiZoomIn } from 'react-icons/hi';
 import {
   Container,
   Image,
+  Meta,
   RecipeInfo,
-  InfoBlock,
-  BadgeList,
+  InfoItem,
+  RecipeDifficulty,
   Badge,
+  Title,
+  Actions,
 } from './RecipeCard.styled';
 
 export const RecipeCard = ({
-  recipe: { name, time, servings, calories, image, difficulty },
+  recipe: { id, name, image, time, servings, calories, difficulty },
 }) => {
   return (
     <Container>
       <Image src={image} alt={name} />
-      <h2>{name}</h2>
+      <Meta>
+        <Title>{name}</Title>
 
-      <RecipeInfo>
-        <InfoBlock alignItems="center">
-          <RxTimer />
-          {time} min
-        </InfoBlock>
-        <InfoBlock alignItems="center">
-          <AiOutlinePieChart />
-          {servings} servings
-        </InfoBlock>
-        <InfoBlock alignItems="center">
-          <BsBarChart />
-          {calories} calories
-        </InfoBlock>
-      </RecipeInfo>
+        <RecipeInfo>
+          <InfoItem>
+            <BsAlarm size="20" />
+            {time} min
+          </InfoItem>
+          <InfoItem>
+            <AiOutlinePieChart size="20" />
+            {servings} servings
+          </InfoItem>
+          <InfoItem>
+            <HiOutlineChartBar size="20" />
+            {calories} calories
+          </InfoItem>
+        </RecipeInfo>
 
-      <div>
-        <h3>Difficulty</h3>
-        <BadgeList>
+        <RecipeDifficulty>
           <Badge isActive={difficulty === 'easy'} value={difficulty}>
             Easy
           </Badge>
@@ -46,14 +48,24 @@ export const RecipeCard = ({
           <Badge isActive={difficulty === 'hard'} value={difficulty}>
             Hard
           </Badge>
-        </BadgeList>
-      </div>
+        </RecipeDifficulty>
+
+        <Actions>
+          <button aria-label="Delete">
+            <HiTrash />
+          </button>
+          <button aria-label="Zoom">
+            <HiZoomIn />
+          </button>
+        </Actions>
+      </Meta>
     </Container>
   );
 };
 
 RecipeCard.propTypes = {
   recipe: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
     servings: PropTypes.number.isRequired,

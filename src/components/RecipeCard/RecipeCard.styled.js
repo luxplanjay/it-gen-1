@@ -1,77 +1,86 @@
 import styled from 'styled-components';
-import { Flex } from 'components/Flex';
 
-export const Container = styled.div`
+export const Container = styled.section`
+  position: relative;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  padding: 8px;
-  border: ${props => {
-    return `1px solid ${props.theme.colors.black}`;
-  }};
-  border-radius: ${props => props.theme.borderRadii.md};
+  border-radius: 4px;
+  overflow: hidden;
 `;
 
 export const Image = styled.img`
   display: block;
   width: 100%;
-  height: 200px;
+  height: 120px;
   object-fit: cover;
 `;
 
-export const RecipeInfo = styled(Flex)`
-  gap: 8px;
+export const Meta = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  flex-grow: 1;
 `;
 
-export const InfoBlock = styled(Flex)`
+export const Title = styled.h2`
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+`;
+
+export const RecipeInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-grow: 1;
+`;
+
+export const InfoItem = styled.div`
+  display: flex;
+  align-items: center;
   gap: 4px;
+  font-size: 14px;
   font-weight: 500;
 `;
 
-export const BadgeList = styled.div`
+export const RecipeDifficulty = styled.div`
   display: flex;
+  justify-content: center;
   gap: 8px;
+  margin-top: 20px;
 `;
 
 export const Badge = styled.span`
-  padding: 8px 16px;
-  border: ${props => {
-    return `1px solid ${props.theme.colors.black}`;
-  }};
-  border-radius: ${props => props.theme.borderRadii.sm};
-
-  background-color: ${({ theme, isActive, value }) => {
-    if (!isActive) {
-      return theme.colors.white;
+  padding: 4px 12px;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: ${props => {
+    if (!props.isActive) {
+      return 'white';
     }
 
-    switch (value) {
+    switch (props.value) {
       case 'easy':
-        return theme.colors.green;
+        return 'green';
       case 'medium':
-        return theme.colors.blue;
+        return 'blue';
       case 'hard':
-        return theme.colors.red;
+        return 'red';
       default:
-        throw new Error(`Unknown recipe difficulty - ${value}`);
+        return 'white';
     }
   }};
-
-  color: ${({ theme, isActive }) => {
-    return isActive ? theme.colors.white : theme.colors.black;
+  color: ${props => {
+    return props.isActive ? 'white' : 'black';
   }};
 `;
 
-// export const Badge = styled.span`
-//   padding: 8px 16px;
-//   border: ${props => {
-//     return `1px solid ${props.theme.colors.black}`;
-//   }};
-//   border-radius: ${props => props.theme.borderRadii.sm};
-
-//   background-color: ${({ theme, isActive }) => {
-//     return isActive ? theme.colors.red : theme.colors.white;
-//   }};
-
-//   color: ${({ theme, isActive }) => {
-//     return isActive ? theme.colors.white : theme.colors.black;
-//   }};
-// `;
+export const Actions = styled.div`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+`;
