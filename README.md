@@ -4,12 +4,15 @@ https://github.com/luxplanjay/it-gen-1
 
 ## TODO
 
-- ✅ Сделать `Layout`
-- ✅ Показывать модальное окно с «большой» картинкой
-  - [React Modal](https://www.npmjs.com/package/react-modal)
-- ✅ Сохранить рецепты в state
-- ✅ Удаление рецепта
-- ✅ Форма рецепта с [Formik](https://formik.org/) и
-  [Yup](https://www.npmjs.com/package/yup)
-- ✅ Добавление рецепта
-- ✅ Сохранение и чтение localStorage
+- ✅ Спроектировать структуру приложения (компоненты, состояние, пропсы)
+- ✅ Вынести выбор породы в компонент BreedSelect
+  - https://react-select.com
+  - Сделать запрос за списком пород
+- ✅ При выборе породы в списке, выполнять запрос за инфой о собаке
+- ✅ Добавить индикатор загрузки
+  - https://www.npmjs.com/package/react-spinners
+- ✅ Вынести информацию о собаке в компонент Dog
+- ✅ Добавить «скелет» вместо индикатора (DogSkeleton)
+  - https://skeletonreact.com
+- ✅ Добавить обработку ошибок
+  - https://react-hot-toast.com

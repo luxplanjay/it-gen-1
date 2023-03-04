@@ -1,49 +1,39 @@
-import { Component } from 'react';
-import { RecipeList } from './RecipeList/RecipeList';
-import { GlobalStyle } from './GlobalStyle';
+import { useState } from 'react';
+import { BreedSelect } from './BreedSelect';
 import { Layout } from './Layout';
-import initialRecipes from '../recipes.json';
-import { RecipeForm } from './RecipeForm/RecipeForm';
+import { Dog } from './Dog';
+import { fetchDogByBreed } from 'api';
+import { DogSkeleton } from './DogSkeleton';
+import { ErrorMessage } from './ErrorMessage';
 
-export class App extends Component {
-  state = {
-    recipes: [],
-  };
+export const App = () => {
+  const [dog, setDog] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  componentDidMount() {
-    const savedRecipes = localStorage.getItem('recipes');
-    if (savedRecipes !== null) {
-      const parsedRecipes = JSON.parse(savedRecipes);
-      return this.setState({ recipes: parsedRecipes });
+  const fetchDog = async breedId => {
+    try {
+      setError(false);
+      setIsLoading(true);
+      const fetchedDog = await fetchDogByBreed(breedId);
+      setDog(fetchedDog);
+    } catch {
+      setError(true);
+    } finally {
+      setIsLoading(false);
     }
-    this.setState({ recipes: initialRecipes });
-  }
-
-  componentDidUpdate(_, prevState) {
-    if (prevState.recipes !== this.state.recipes) {
-      localStorage.setItem('recipes', JSON.stringify(this.state.recipes));
-    }
-  }
-
-  addRecipe = newRecipe => {
-    this.setState(prevState => ({
-      recipes: [...prevState.recipes, newRecipe],
-    }));
   };
 
-  deleteRecipe = recipeId => {
-    this.setState(prevState => ({
-      recipes: prevState.recipes.filter(recipe => recipe.id !== recipeId),
-    }));
-  };
-
-  render() {
-    return (
-      <Layout>
-        <RecipeForm onSave={this.addRecipe} />
-        <RecipeList recipes={this.state.recipes} onDelete={this.deleteRecipe} />
-        <GlobalStyle />
-      </Layout>
-    );
-  }
-}
+  return (
+    <Layout>
+      <BreedSelect onSelect={fetchDog} />
+      {dog && !isLoading && <Dog dog={dog} />}
+      {isLoading && <DogSkeleton />}
+      {error && (
+        <ErrorMessage>
+          У нас не получилось взять данные о собачке, попробуйте еще разочек 😇
+        </ErrorMessage>
+      )}
+    </Layout>
+  );
+};
