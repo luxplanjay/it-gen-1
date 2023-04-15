@@ -6,6 +6,7 @@ https://roadmap.sh/
 
 ## YouTube
 
+- https://www.youtube.com/@freecodecamp
 - https://www.youtube.com/@UlbiTV/featured
 - https://www.youtube.com/@YauhenKavalchuk/featured
 - https://www.youtube.com/@ArchakovBlog/videos
